@@ -1,0 +1,85 @@
+<%- include("header"); -%>
+
+    <title>Scheduling</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-center">Schedule</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form action="/schedule" method="post" id="schedule-form">
+                        <div class="form-group">
+                            <!-- a form with uid, first name, last name, pronouns, email, phone number, class standing, graduation year, language -->
+                            <div class=" form-group"> <label for="uid">UID</label>
+                                <input type="text" class="form-control" id="uid" name="uid" required
+                                    placeholder="Enter UID">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" required
+                                    placeholder="Enter First Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" required
+                                    placeholder="Enter Last Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="pronouns">Pronouns</label>
+                                <!-- option with He/Him/His, She/Her/Hers, They/Them/Theirs, ze/hir/hirs -->
+                                <select class="form-control" id="pronouns" name="pronouns" required>
+                                    <option value="He/Him/His">He/Him/His</option>
+                                    <option value="She/Her/Hers">She/Her/Hers</option>
+                                    <option value="They/Them/Theirs">They/Them/Theirs</option>
+                                    <option value="Ze/Hir/Hirs">Ze/Hir/Hirs</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required
+                                    placeholder="Enter Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required
+                                    placeholder="Enter Phone Number">
+                            </div>
+                            <!-- textform for major -->
+                            <div class="form-group">
+                                <label for="major">Major</label>
+                                <input type="text" class="form-control" id="major" name="major" required
+                                    placeholder="Enter Major">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="classStanding">Class Standing</label>
+                                <!-- option with Freshman, Sophomore, Junior, Senior -->
+                                <select class="form-control" id="classStanding" name="classStanding" required>
+                                    <option value="Freshman">Freshman</option>
+                                    <option value="Sophomore">Sophomore</option>
+                                    <option value="Junior">Junior</option>
+                                    <option value="Senior">Senior</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="graduationYear">Graduation Year</label>
+                                <input type="number" class="form-control" id="graduationYear" name="graduationYear"
+                                    required placeholder="Enter Graduation Year" min="2022" max="2027">
+                            </div>
+                            <div class="form-group">
+                                <label for="language">Language</label>
+                                <input type="text" class="form-control" id="language" name="language" required
+                                    maxlength="25" placeholder="Enter Language">
+                            </div>
+                            <button type="" class="btn btn-primary mt-4 submit-form">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <script src="/scripts/schedule.js"></script>
+    </body>

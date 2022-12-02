@@ -1,0 +1,183 @@
+<%- include("header"); -%>
+
+    <title> Avaibility</title>
+    </head>
+
+    <body>
+        <!-- title -->
+        <div class="container">
+
+
+            <h1 class="text text-center">Choose Available appointments</h1>
+
+            <!-- option with 14 dates  -->
+
+            <div class="form-group">
+                <form>
+                    <label for="date">Date</label>
+                    <select class="form-control visit-date" id="date" name="date" required>
+                        <option value=""></option>
+                        
+                    </select>
+                    <!-- option with 4 times from 12pm to 4pm -->
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <select class="form-control visit-time" id="time" name="time" required>
+                            <option value=""></option>
+                            
+                        </select>
+                        <!-- option for virtual or in-person -->
+                        <div class="form-group">
+                            <label for="type">Type</label>
+                            <select class="form-control visit-type" id="type" name="type" required>
+                                <option value=""></option>
+                                <option value="virtual">Virtual</option>
+                                <option value="in-person">In-Person</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- option for TA with 20 random human  names -->
+                    <div class="form-group" style="visibility: hidden;">
+                        <label for="ta" class="label-ta">Tutor</label>
+                        <select class="form-control visit-ta" id="ta" name="ta" required>
+                            <option value=""></option>
+                            <option value="Amanda">Amanda</option>
+                            <option value="Amber">Amber</option>
+                            <option value="Amy">Amy</option>
+                            <option value="Andrew">Andrew</option>
+                            <option value="Anna">Anna</option>
+                            <option value="Anthony">Anthony</option>
+                            <option value="Ashley">Ashley</option>
+                            <option value="Austin">Austin</option>
+                            <option value="Ben">Ben</option>
+                            <option value="Brenda">Brenda</option>
+                            <option value="Brian">Brian</option>
+                            <option value="Brittany">Brittany</option>
+                            <option value="Caleb">Caleb</option>
+                            <option value="Cameron">Cameron</option>
+                            <option value="Caroline">Caroline</option>
+                            <option value="Catherine">Catherine</option>
+                            <option value="Chad">Chad</option>
+                            <option value="Charles">Charles</option>
+                            <option value="Chase">Chase</option>
+                            <option value="Chris">Chris</option>
+                            <option value="Christian">Christian</option>
+                            <option value="Christopher">Christopher</option>
+                            <option value="Claire">Claire</option>
+                            <option value="Colin">Colin</option>
+                            <option value="Connor">Connor</option>
+                            <option value="Daniel">Daniel</option>
+                            <option value="David">David</option>
+                            <option value="Derek">Derek</option>
+                            <option value="Diana">Diana</option>
+                            <option value="Dominic">Dominic</option>
+                            <option value="Dylan">Dylan</option>
+                            <option value="Elijah">Elijah</option>
+                            <option value="Elizabeth">Elizabeth</option>
+                            <option value="Emily">Emily</option>
+                            <option value="Emma">Emma</option>
+                            <option value="Eric">Eric</option>
+                            <option value="Ethan">Ethan</option>
+                        </select>
+                    </div>
+
+                    <!-- textforms for course name, course instructor, visit purpose -->
+                    <div class="form-group temp" style="visibility: hidden;">
+                        <label for="courseName">Course Name</label>
+                        <input type="text" class="form-control" id="courseName" name="courseName">
+                        <label for="courseInstructor">Course Instructor</label>
+                        <input type="text" class="form-control" id="courseInstructor" name="courseInstructor">
+                        <label for="visitPurpose">Visit Purpose</label>
+                        <input type="text" class="form-control" id="visitPurpose" name="visitPurpose" required>
+                    </div>
+                    <!-- submit button -->
+                    <button type="submit" class="btn btn-primary mt-4 submit-form">Submit</button>
+                </form>
+                <p>
+                    <!-- schedules from ejs response -->
+                   
+                        <!-- <%- schedules %> -->
+                </p>
+            </div>
+           
+            <script>
+                // if the user selects in-person, show the textforms for course name, course instructor, visit purpose
+               { const visitType = document.querySelector(".visit-type");
+                const visitTime = document.querySelector(".visit-time");
+                const visitDate = document.querySelector(".visit-date");
+                const visitTA = document.querySelector(".visit-ta");
+                const labelTA = document.querySelector(".label-ta");
+                const temp = document.querySelector(".temp");
+                {
+                    visitType.addEventListener("change", (e) => {
+                        if (e.target.value !== "" && visitTime.value !== "" && visitDate.value !== "") {
+                            temp.style.visibility = "visible";
+                            visitTA.style.visibility = "visible";
+                            labelTA.style.visibility = "visible";
+                        } else {
+                            temp.style.visibility = "hidden";
+                        }
+                    });
+                    visitDate.addEventListener("change", (e) => {
+                        if (e.target.value !== "" && visitTime.value !== "" && visitType.value !== "") {
+                            temp.style.visibility = "visible";
+                            visitTA.style.visibility = "visible";
+                            labelTA.style.visibility = "visible";
+                        } else {
+                            temp.style.visibility = "hidden";
+                        }
+                    });
+                    visitTime.addEventListener("change", (e) => {
+                        if (e.target.value !== "" && visitType.value !== "" && visitDate.value !== "") {
+                            temp.style.visibility = "visible";
+                            visitTA.style.visibility = "visible";
+                            labelTA.style.visibility = "visible";
+                        } else {
+                            temp.style.visibility = "hidden";
+                        }
+                    });
+                }
+            }
+            // getting schedules from ejs response 
+            var schedules = '<%- JSON.stringify(schedules) %>'; // test is now a valid js object
+           
+            // remove first and last character of the string
+            schedules = schedules.substring(1, schedules.length - 1);
+            console.log(schedules);
+            // convert to json
+            var schedules = JSON.parse(schedules);
+            // get list of all the dates
+            var dates = [];
+            var times = [];
+            for (var i = 0; i < schedules.length; i++) {
+                dates.push(schedules[i].start_time.substring(0, 10));
+                // substract 4 hours from the time
+                time = schedules[i].start_time.substring(11, 16);
+                time = time.substring(0, 2) - 5;
+                times.push(time+":00"+"-"+(parseInt(time)+1)+":00");
+            }
+            // get times 
+            
+            // add the dates to visit-date select
+            var select = document.querySelector(".visit-date");
+            for (var i = 0; i < dates.length; i++) {
+                var opt = dates[i];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = opt;
+                select.appendChild(el);
+            }
+            // add the times to visit-time select
+            var select = document.querySelector(".visit-time");
+            for (var i = 0; i < times.length; i++) {
+                var opt = times[i];
+                var el = document.createElement("option");
+                el.textContent = opt;
+                el.value = opt;
+                select.appendChild(el);
+            }
+          
+            </script>
+    </body>
+
+    </html>
